@@ -25,3 +25,5 @@ Thumbs.db
 .idea/
 .env
 *.log
+
+sample-nextjs-admin-template/
