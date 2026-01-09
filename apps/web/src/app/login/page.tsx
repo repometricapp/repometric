@@ -22,38 +22,42 @@ export default function LoginPage() {
           }}
         ></div>
       </div>
+
       <main className="relative flex w-full max-w-4xl flex-col items-center px-6 py-12 text-center md:py-20">
-      <div className="mb-8">
-        <span className="inline-flex items-center rounded-full border border-gray-300 bg-gray-200 px-3 py-1 text-xs font-medium uppercase tracking-wide text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300">
-          <span className="mr-2 h-2 w-2 rounded-full bg-primary"></span>
-          GitHub Observability
-        </span>
-      </div>
-      <h1 className="mb-6 max-w-3xl font-display text-4xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-6xl">
-        RepoMetric turns GitHub signals into{" "}
-        <span className="bg-gradient-to-r from-primary to-orange-400 bg-clip-text text-transparent">
-          decisions.
-        </span>
-      </h1>
-      <p className="mb-12 max-w-2xl text-lg leading-relaxed text-text-muted-light dark:text-text-muted-dark md:text-xl">
-        Track pipeline performance, repo health, and engineering momentum with a
-        single dashboard built for teams that move fast.
-      </p>
-      <div className="relative w-full max-w-md rounded-2xl border border-border-light bg-white p-8 shadow-xl dark:border-border-dark dark:bg-card-dark dark:shadow-none">
-        <div className="absolute right-6 top-6">
-          <span className="rounded border border-green-200 bg-green-100 px-2 py-0.5 text-[10px] font-bold text-green-700 dark:border-green-800 dark:bg-green-900/30 dark:text-green-400">
-            OAuth
+        {/* Hero Title */}
+        <h1 className="mb-6 max-w-3xl font-display text-4xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-6xl">
+          RepoMetric turns GitHub signals into{" "}
+          <span className="bg-gradient-to-r from-primary to-orange-400 bg-clip-text text-transparent">
+            decisions.
           </span>
-        </div>
-        <div className="mb-6 text-left">
-          <h2 className="mb-2 font-display text-2xl font-bold text-gray-900 dark:text-white">
-            Sign in to RepoMetric
-          </h2>
-          <p className="text-sm leading-relaxed text-text-muted-light dark:text-text-muted-dark">
-            Connect your GitHub orgs and keep an eye on engineering health.
-          </p>
-        </div>
-        <div className="space-y-4">
+        </h1>
+
+        {/* Subtitle */}
+        <p className="mb-12 max-w-2xl text-lg leading-relaxed text-text-muted-light dark:text-text-muted-dark md:text-xl">
+          Track pipeline performance, repo health, and engineering momentum with a
+          single dashboard built for teams that move fast.
+        </p>
+
+        {/* Sign In Card */}
+        <div className="relative w-full max-w-md rounded-2xl border border-border-light bg-white p-8 shadow-xl dark:border-border-dark dark:bg-card-dark dark:shadow-none">
+          {/* OAuth Badge */}
+          <div className="absolute right-6 top-6">
+            <span className="rounded border border-green-200 bg-green-100 px-2 py-0.5 text-[10px] font-bold text-green-700 dark:border-green-800 dark:bg-green-900/30 dark:text-green-400">
+              OAuth
+            </span>
+          </div>
+
+          {/* Card Header */}
+          <div className="mb-6 text-left">
+            <h2 className="mb-2 font-display text-2xl font-bold text-gray-900 dark:text-white">
+              Sign in to RepoMetric
+            </h2>
+            <p className="text-sm leading-relaxed text-text-muted-light dark:text-text-muted-dark">
+              Connect your GitHub orgs and keep an eye on engineering health.
+            </p>
+          </div>
+
+          {/* GitHub Sign In Button */}
           <a
             href="/api/auth/login"
             className="flex w-full transform items-center justify-center gap-3 rounded-lg bg-primary px-4 py-3 font-semibold text-white shadow-md transition-all duration-200 hover:scale-[1.02] hover:bg-primary-hover hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background-dark"
@@ -63,15 +67,16 @@ export default function LoginPage() {
             </svg>
             Continue with GitHub
           </a>
+
+          {/* Privacy Notice */}
+          <div className="mt-6 rounded-lg border border-gray-100 bg-gray-50 p-4 dark:border-gray-800/50 dark:bg-black/30">
+            <p className="text-center text-xs leading-relaxed text-text-muted-light dark:text-text-muted-dark">
+              We only request read access to organization metadata. You can revoke
+              access at any time from GitHub settings.
+            </p>
+          </div>
         </div>
-        <div className="mt-6 rounded-lg border border-gray-100 bg-gray-50 p-4 dark:border-gray-800/50 dark:bg-black/30">
-          <p className="text-center text-xs leading-relaxed text-text-muted-light dark:text-text-muted-dark">
-            We only request read access to organization metadata. You can revoke
-            access at any time from GitHub settings.
-          </p>
-        </div>
-      </div>
-    </main>
+      </main>
     </>
   );
 }
