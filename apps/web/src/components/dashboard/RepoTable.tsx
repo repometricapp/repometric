@@ -12,9 +12,11 @@ type RepoRow = {
 };
 
 const healthStyles: Record<RepoHealth, string> = {
-  healthy: "bg-emerald-500/20 text-emerald-200 border-emerald-400/30",
-  watch: "bg-amber-500/20 text-amber-100 border-amber-400/30",
-  risk: "bg-rose-500/20 text-rose-200 border-rose-400/30"
+  healthy:
+    "bg-emerald-500/10 text-emerald-500 dark:bg-emerald-500/10 dark:text-emerald-400",
+  watch:
+    "bg-amber-500/10 text-amber-500 dark:bg-amber-500/10 dark:text-amber-400",
+  risk: "bg-red-500/10 text-red-500 dark:bg-red-500/10 dark:text-red-400"
 };
 
 export default function RepoTable({
@@ -26,55 +28,59 @@ export default function RepoTable({
 }) {
   const repoCount = totalRepos ?? repos.length;
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-glow backdrop-blur">
-      <div className="mb-4 flex items-center justify-between">
-        <div>
-          <h3 className="font-display text-lg font-semibold text-white">Repository health</h3>
-          <p className="text-xs text-white/60">
-            Status, pipeline runtime, and GitHub activity signals
-          </p>
-        </div>
-        <span className="rounded-full border border-white/10 px-2 py-0.5 text-xs uppercase tracking-[0.2em] text-white/50">
+    <div className="rounded-lg border border-slate-200 bg-white text-slate-900 dark:border-border-dark dark:bg-card-dark dark:text-slate-100">
+      <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4 dark:border-border-dark">
+        <h3 className="text-sm font-bold">Repository health</h3>
+        <span className="rounded bg-slate-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:bg-white/5 dark:text-text-muted">
           {repoCount} repos
         </span>
       </div>
-      <div className="overflow-hidden rounded-xl border border-white/10">
-        <div className="overflow-x-auto">
-          <table className="min-w-[980px] w-full text-left text-sm">
-          <thead className="bg-white/5 text-xs uppercase tracking-[0.18em] text-white/50">
-            <tr>
-              <th className="px-4 py-3">Repository</th>
-              <th className="px-4 py-3">Health</th>
-              <th className="px-4 py-3">Pipeline</th>
-              <th className="px-4 py-3">Avg runtime</th>
-              <th className="px-4 py-3">Issues</th>
-              <th className="px-4 py-3">PRs</th>
-              <th className="px-4 py-3">Actions</th>
-              <th className="px-4 py-3">Last commit</th>
+      <div className="overflow-x-auto">
+        <table className="min-w-[980px] w-full text-left text-[11px]">
+          <thead>
+            <tr className="border-b border-slate-200 text-slate-400 dark:border-border-dark dark:text-text-muted">
+              <th className="px-6 py-3 font-semibold uppercase tracking-widest">Repository</th>
+              <th className="px-4 py-3 font-semibold uppercase tracking-widest">Health</th>
+              <th className="px-4 py-3 font-semibold uppercase tracking-widest">Pipeline</th>
+              <th className="px-4 py-3 font-semibold uppercase tracking-widest">Avg runtime</th>
+              <th className="px-4 py-3 font-semibold uppercase tracking-widest">Issues</th>
+              <th className="px-4 py-3 font-semibold uppercase tracking-widest">PRs</th>
+              <th className="px-4 py-3 font-semibold uppercase tracking-widest">Actions</th>
+              <th className="px-6 py-3 text-right font-semibold uppercase tracking-widest">
+                Last commit
+              </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="divide-y divide-slate-100 dark:divide-border-dark">
             {repos.map((repo) => (
-              <tr key={repo.name} className="border-t border-white/5 text-white/80">
-                <td className="px-4 py-4 font-semibold text-white">{repo.name}</td>
-                <td className="px-4 py-4">
+              <tr
+                key={repo.name}
+                className="transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+              >
+                <td className="px-6 py-2.5 font-bold text-slate-800 dark:text-slate-200">
+                  {repo.name}
+                </td>
+                <td className="px-4 py-2.5">
                   <span
-                    className={`rounded-full border px-2 py-1 text-xs font-semibold ${healthStyles[repo.health]}`}
+                    className={`rounded-full px-2 py-0.5 text-[9px] font-bold uppercase ${healthStyles[repo.health]}`}
                   >
                     {repo.health}
                   </span>
                 </td>
-                <td className="px-4 py-4">{repo.pipeline}</td>
-                <td className="px-4 py-4">{repo.avgRuntime}</td>
-                <td className="px-4 py-4">{repo.openIssues}</td>
-                <td className="px-4 py-4">{repo.openPrs}</td>
-                <td className="px-4 py-4">{repo.actionsMinutes}m</td>
-                <td className="px-4 py-4 text-xs text-white/60">{repo.lastCommit}</td>
+                <td className="px-4 py-2.5 text-slate-500 dark:text-text-muted">
+                  {repo.pipeline}
+                </td>
+                <td className="px-4 py-2.5 font-mono">{repo.avgRuntime}</td>
+                <td className="px-4 py-2.5">{repo.openIssues}</td>
+                <td className="px-4 py-2.5">{repo.openPrs}</td>
+                <td className="px-4 py-2.5">{repo.actionsMinutes}m</td>
+                <td className="px-6 py-2.5 text-right text-slate-400 dark:text-text-muted">
+                  {repo.lastCommit}
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
-        </div>
       </div>
     </div>
   );

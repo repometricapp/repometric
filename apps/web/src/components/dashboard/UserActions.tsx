@@ -75,7 +75,7 @@ export default function UserActions({ name }: UserActionsProps) {
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
         ref={buttonRef}
-        className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/10 text-sm font-semibold text-white shadow-glow"
+        className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 bg-slate-200 text-xs font-bold text-slate-700 dark:border-border-dark dark:bg-card-dark dark:text-slate-100"
         aria-label="Open profile menu"
         aria-expanded={isOpen}
       >
@@ -84,44 +84,44 @@ export default function UserActions({ name }: UserActionsProps) {
       {isOpen ? (
         <div
           style={menuStyle}
-          className="rounded-2xl border border-white/10 bg-[#0b0f19]/95 p-2 text-sm text-white shadow-glow backdrop-blur"
+          className="rounded-lg border border-slate-200 bg-white p-2 text-sm text-slate-900 shadow-lg dark:border-border-dark dark:bg-card-dark dark:text-slate-100"
         >
           <div className="px-3 py-2">
-            <p className="text-xs uppercase tracking-[0.2em] text-white/50">
+            <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-text-muted">
               Signed in
             </p>
             <p className="mt-1 font-semibold">{name}</p>
           </div>
-          <div className="my-2 h-px bg-white/10"></div>
+          <div className="my-2 h-px bg-slate-200 dark:bg-border-dark"></div>
           <button
             type="button"
-            className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-white/80 hover:bg-white/10"
+            className="flex w-full items-center justify-between rounded px-3 py-2 text-left text-slate-600 hover:bg-slate-100 dark:text-text-muted dark:hover:bg-white/5"
           >
             Profile settings
-            <span className="text-xs text-white/40">Soon</span>
+            <span className="text-[10px] text-slate-400 dark:text-text-muted">Soon</span>
           </button>
           <button
             type="button"
-            className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-white/80 hover:bg-white/10"
+            className="flex w-full items-center justify-between rounded px-3 py-2 text-left text-slate-600 hover:bg-slate-100 dark:text-text-muted dark:hover:bg-white/5"
           >
             Organization access
-            <span className="text-xs text-white/40">Manage</span>
+            <span className="text-[10px] text-slate-400 dark:text-text-muted">Manage</span>
           </button>
           <button
             type="button"
-            className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-white/80 hover:bg-white/10"
+            className="flex w-full items-center justify-between rounded px-3 py-2 text-left text-slate-600 hover:bg-slate-100 dark:text-text-muted dark:hover:bg-white/5"
           >
             Theme preferences
-            <span className="text-xs text-white/40">Auto</span>
+            <span className="text-[10px] text-slate-400 dark:text-text-muted">Auto</span>
           </button>
-          <div className="my-2 h-px bg-white/10"></div>
+          <div className="my-2 h-px bg-slate-200 dark:bg-border-dark"></div>
           <button
             type="button"
             onClick={handleLogout}
-            className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-left font-semibold text-rose-200 hover:bg-rose-500/10"
+            className="flex w-full items-center justify-between rounded px-3 py-2 text-left font-semibold text-red-500 hover:bg-red-500/10"
           >
             Log out
-            <span className="text-xs text-rose-200/60">Secure</span>
+            <span className="text-[10px] text-red-400/80">Secure</span>
           </button>
         </div>
       ) : null}

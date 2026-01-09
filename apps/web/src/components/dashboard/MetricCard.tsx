@@ -1,81 +1,44 @@
-type TrendDirection = "up" | "down" | "flat";
-
 type MetricTone = "orange" | "sky" | "emerald" | "violet";
 
 type MetricCardProps = {
   label: string;
   value: string;
   delta: string;
-  direction: TrendDirection;
+  direction: "up" | "down" | "flat";
   footnote: string;
   tone?: MetricTone;
 };
 
-const trendStyles: Record<TrendDirection, string> = {
-  up: "text-emerald-300",
-  down: "text-rose-300",
-  flat: "text-slate-300"
-};
-
 const toneStyles: Record<MetricTone, string> = {
-  orange: "from-orange-500/40 via-orange-400/20 to-transparent",
-  sky: "from-sky-400/40 via-sky-300/20 to-transparent",
-  emerald: "from-emerald-400/40 via-emerald-300/20 to-transparent",
-  violet: "from-violet-400/40 via-violet-300/20 to-transparent"
+  orange: "via-amber-500/20",
+  sky: "via-blue-500/20",
+  emerald: "via-emerald-500/20",
+  violet: "via-purple-500/20"
 };
-
-function TrendArrow({ direction }: { direction: TrendDirection }) {
-  if (direction === "flat") {
-    return <span className="text-xs">--</span>;
-  }
-
-  return (
-    <svg
-      className="h-3 w-3"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      {direction === "up" ? (
-        <>
-          <path d="M6 14l6-6 6 6" />
-          <path d="M12 8v10" />
-        </>
-      ) : (
-        <>
-          <path d="M6 10l6 6 6-6" />
-          <path d="M12 6v10" />
-        </>
-      )}
-    </svg>
-  );
-}
 
 export default function MetricCard({
   label,
   value,
   delta,
-  direction,
   footnote,
   tone = "sky"
 }: MetricCardProps) {
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 shadow-glow backdrop-blur">
-      <div
-        className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${toneStyles[tone]}`}
-      />
-      <div className="flex items-center justify-between">
-        <p className="text-xs uppercase tracking-[0.2em] text-white/50">{label}</p>
-        <div className={`flex items-center gap-1 text-xs font-semibold ${trendStyles[direction]}`}>
-          <TrendArrow direction={direction} />
-          <span>{delta}</span>
-        </div>
+    <div className="relative overflow-hidden rounded-lg border border-slate-200 bg-white p-6 text-slate-900 dark:border-border-dark dark:bg-card-dark dark:text-slate-100">
+      <div className="mb-4 flex items-start justify-between">
+        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-text-muted">
+          {label}
+        </span>
+        <span className="flex items-center gap-1 text-[9px] font-bold text-green-500">
+          <span className="h-1 w-1 animate-pulse rounded-full bg-green-500"></span>
+          {delta}
+        </span>
       </div>
-      <div className="relative mt-4 text-3xl font-semibold text-white">{value}</div>
-      <p className="relative mt-2 text-xs text-white/60">{footnote}</p>
+      <div className="text-4xl font-bold leading-tight">{value}</div>
+      <p className="mt-1 text-[11px] text-slate-400 dark:text-text-muted">{footnote}</p>
+      <div
+        className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent ${toneStyles[tone]} to-transparent`}
+      />
     </div>
   );
 }

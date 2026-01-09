@@ -124,55 +124,58 @@ export default async function DemoPage() {
     .slice(0, 3);
 
   return (
-    <main className="relative min-h-screen w-full overflow-x-hidden overflow-y-visible bg-background-dark text-white">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-950 to-black"></div>
-        <div className="absolute -left-40 -top-40 h-96 w-96 rounded-full bg-sky-500/10 blur-[120px]"></div>
-        <div className="absolute right-0 top-20 h-80 w-80 rounded-full bg-orange-500/10 blur-[120px]"></div>
-        <div className="absolute inset-0 bg-grid opacity-30"></div>
-      </div>
-
-      <div className="relative mx-auto flex w-full max-w-[1440px] gap-6 px-4 py-8 sm:px-6 lg:px-8">
-        <Sidebar orgName={orgName} repoCount={activeRepos} openPrs={openPrsTotal} />
-        <div className="flex min-w-0 flex-1 flex-col gap-6">
-          <header className="flex flex-col gap-6 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-glow backdrop-blur md:flex-row md:items-center md:justify-between">
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-white/50">Overview</p>
-              <h1 className="mt-3 font-display text-3xl font-semibold">
+    <main className="flex min-h-screen w-full bg-background-light text-slate-900 dark:bg-background-dark dark:text-slate-100">
+      <Sidebar orgName={orgName} repoCount={activeRepos} openPrs={openPrsTotal} />
+      <div className="flex-1 overflow-y-auto bg-slate-50 p-6 dark:bg-background-dark sm:p-8">
+        <div className="mx-auto max-w-[1400px] space-y-8">
+          <header className="flex flex-col justify-between gap-6 border-b border-slate-200 pb-6 dark:border-border-dark md:flex-row md:items-end">
+            <div className="space-y-1">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-text-muted">
+                Overview
+              </p>
+              <h1 className="text-3xl font-bold tracking-tight">
                 Organization health overview
               </h1>
-              <p className="mt-2 max-w-xl text-sm text-white/60">
+              <p className="text-sm text-slate-500 dark:text-text-muted">
                 Signals from GitHub actions, pull requests, and repository activity
                 in one dashboard.
               </p>
             </div>
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm">
-                <p className="text-xs uppercase tracking-[0.2em] text-white/50">Org</p>
-                <p className="font-semibold text-white">{orgName}</p>
+            <div className="flex items-center gap-4">
+              <div className="hidden gap-6 border-r border-slate-200 pr-6 text-right dark:border-border-dark lg:flex">
+                <div>
+                  <p className="text-[9px] font-bold uppercase text-slate-400 dark:text-text-muted">
+                    Org
+                  </p>
+                  <p className="text-xs font-semibold">{orgName}</p>
+                </div>
+                <div>
+                  <p className="text-[9px] font-bold uppercase text-slate-400 dark:text-text-muted">
+                    Last sync
+                  </p>
+                  <p className="text-xs font-semibold">{lastSync}</p>
+                </div>
               </div>
-              <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm">
-                <p className="text-xs uppercase tracking-[0.2em] text-white/50">
-                  Last sync
-                </p>
-                <p className="font-semibold text-white">{lastSync}</p>
+              <div className="flex items-center gap-3">
+                <Button className="rounded bg-primary px-6 py-2 text-sm font-bold text-white hover:bg-orange-600">
+                  Sync now
+                </Button>
+                <UserActions name={userName} />
               </div>
-              <Button className="h-12 rounded-xl px-6 text-sm font-semibold">
-                Sync now
-              </Button>
-              <UserActions name={userName} />
             </div>
           </header>
 
-          <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {metrics.map((metric) => (
               <MetricCard key={metric.label} {...metric} />
             ))}
           </section>
 
-          <section className="grid gap-6 xl:grid-cols-[2fr_1fr]">
-            <RepoTable repos={repos} totalRepos={activeRepos} />
-            <div className="space-y-6">
+          <section className="grid grid-cols-12 gap-6">
+            <div className="col-span-12 lg:col-span-9">
+              <RepoTable repos={repos} totalRepos={activeRepos} />
+            </div>
+            <div className="col-span-12 space-y-6 lg:col-span-3">
               <PipelineChart data={pipelineSeries} />
               <AlertList alerts={alerts} />
             </div>

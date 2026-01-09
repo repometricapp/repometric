@@ -8,38 +8,42 @@ type AlertItem = {
 };
 
 const severityStyles: Record<AlertSeverity, string> = {
-  critical: "border-red-500/40 bg-red-500/10 text-red-200",
-  warning: "border-amber-400/40 bg-amber-400/10 text-amber-100",
-  info: "border-sky-400/40 bg-sky-400/10 text-sky-100"
+  critical: "border-red-500/20 bg-red-500/5 text-red-500",
+  warning: "border-amber-500/20 bg-amber-500/5 text-amber-500",
+  info: "border-sky-500/20 bg-sky-500/5 text-sky-500"
 };
 
 export default function AlertList({ alerts }: { alerts: AlertItem[] }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-glow backdrop-blur">
+    <div className="rounded-lg border border-slate-200 bg-white p-6 text-slate-900 dark:border-border-dark dark:bg-card-dark dark:text-slate-100">
       <div className="mb-4 flex items-center justify-between">
-        <h3 className="font-display text-lg font-semibold text-white">Live alerts</h3>
-        <span className="rounded-full border border-white/10 px-2 py-0.5 text-xs uppercase tracking-[0.2em] text-white/50">
-          Last 24h
+        <h3 className="text-sm font-bold">Live alerts</h3>
+        <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[9px] font-bold text-slate-400 dark:bg-white/5 dark:text-text-muted">
+          LAST 24H
         </span>
       </div>
       <div className="space-y-3">
         {alerts.length === 0 ? (
-          <div className="rounded-xl border border-white/10 bg-black/20 px-4 py-6 text-center text-sm text-white/60">
+          <div className="rounded border border-slate-200 bg-slate-50 px-4 py-6 text-center text-[11px] text-slate-500 dark:border-border-dark dark:bg-white/5 dark:text-text-muted">
             No alerts right now. Repos look stable.
           </div>
         ) : (
           alerts.map((alert) => (
             <div
               key={`${alert.repo}-${alert.title}`}
-              className={`rounded-xl border px-4 py-3 ${severityStyles[alert.severity]}`}
+              className={`rounded border p-3 transition-colors ${severityStyles[alert.severity]}`}
             >
-              <div className="flex items-center justify-between text-sm font-semibold">
-                <span>{alert.title}</span>
-                <span className="text-xs uppercase tracking-[0.2em] text-white/60">
-                  {alert.repo}
+              <div className="mb-1 flex items-start justify-between">
+                <span className="text-[10px] font-bold uppercase tracking-tight">
+                  {alert.title}
                 </span>
               </div>
-              <p className="mt-1 text-xs text-white/70">{alert.description}</p>
+              <p className="mb-2 text-[11px] font-mono text-slate-600 dark:text-slate-200">
+                {alert.repo.toUpperCase()}
+              </p>
+              <p className="text-[10px] text-slate-500 dark:text-text-muted">
+                {alert.description}
+              </p>
             </div>
           ))
         )}
