@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { getGitHubAuthUrl } from "@/lib/auth";
-import { logger } from "@/lib/logging/logger";
+import { getGitHubAuthUrl } from "@/libs/auth";
+import { logger } from "@/libs/logging/logger";
 
 export async function GET() {
   try {

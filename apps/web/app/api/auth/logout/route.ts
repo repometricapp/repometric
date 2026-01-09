@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { logger } from "@/lib/logging/logger";
+import { logger } from "@/libs/logging/logger";
 
 function clearAuthCookie() {
   try {

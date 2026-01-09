@@ -7,7 +7,7 @@ import DashboardMetrics from "@/components/dashboard/DashboardMetrics";
 import RepoTable from "@/components/dashboard/RepoTable";
 import PipelineChart from "@/components/dashboard/PipelineChart";
 import AlertList from "@/components/dashboard/AlertList";
-import { formatDuration } from "@/lib/utils";
+import { formatDuration } from "@/libs/utils";
 import { MetricCardProps } from "@/components/dashboard/MetricCard";
 import { AlertItem } from "@/components/dashboard/AlertList";
 

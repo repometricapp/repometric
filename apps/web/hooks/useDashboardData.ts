@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { DashboardData } from "@/lib/github";
-import { logger } from "@/lib/logger";
+import { DashboardData } from "@/libs/github";
+import { logger } from "@/libs/logger";
 
 const ORG_STORAGE_KEY = "repometric_selected_org";
 

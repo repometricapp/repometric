@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { exchangeCodeForToken } from "@/lib/auth";
-import { logger } from "@/lib/logging/logger";
+import { exchangeCodeForToken } from "@/libs/auth";
+import { logger } from "@/libs/logging/logger";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

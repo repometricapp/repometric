@@ -5,7 +5,7 @@ import Sidebar from "@/components/dashboard/Sidebar";
 import RepositoriesHeader from "@/components/dashboard/RepositoriesHeader";
 import { Button } from "@/components/ui/Button";
 import { useDashboardData } from "@/hooks/useDashboardData";
-import { formatDuration } from "@/lib/utils";
+import { formatDuration } from "@/libs/utils";
 
 const healthStyles = {
   healthy:

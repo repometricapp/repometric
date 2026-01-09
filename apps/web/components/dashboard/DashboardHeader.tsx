@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/Button";
-import { OrgOption } from "@/lib/github";
+import { OrgOption } from "@/libs/github";
 import UserActions from "./UserActions";
 
 type DashboardHeaderProps = {

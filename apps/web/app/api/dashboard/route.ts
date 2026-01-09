@@ -1,4 +1,4 @@
-import { getDashboardData } from "@/lib/github";
+import { getDashboardData } from "@/libs/github";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 

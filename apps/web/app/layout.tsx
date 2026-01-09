@@ -1,4 +1,4 @@
-import { ThemeProvider } from "@/providers/ThemeProvider";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import "../styles/globals.css";
 import { Inter, Space_Grotesk } from "next/font/google";
 
