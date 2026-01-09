@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { exchangeCodeForToken } from "@/lib/auth";
+import { logger } from "@/lib/logging/logger";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -9,6 +10,11 @@ export async function GET(request: Request) {
   const storedState = cookies().get("repometric_oauth_state")?.value;
 
   if (!code || !state || !storedState || state !== storedState) {
+    logger.warn({
+      message: "Invalid OAuth state",
+      receivedState: state,
+      storedState: storedState,
+    });
     return NextResponse.json(
       { error: "Invalid OAuth state" },
       { status: 400 }
@@ -31,8 +37,12 @@ export async function GET(request: Request) {
 
     return response;
   } catch (error) {
+    logger.error({
+      message: "Failed to exchange OAuth code for token",
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : "OAuth failed" },
+      { error: "OAuth failed" },
       { status: 500 }
     );
   }
