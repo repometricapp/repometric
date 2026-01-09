@@ -120,6 +120,7 @@
 
 ### Task 14 – Final Polish & Documentation
 - [x] UI cleanup and consistency
+- [x] Codebase Refactoring
 - [ ] Add screenshots to README
 - [ ] Add architecture diagram
 - [x] Add setup and usage documentation

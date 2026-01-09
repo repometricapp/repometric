@@ -5,10 +5,8 @@
 The project is a monorepo with a Next.js web application in the `apps/web` directory. The `src` directory contains the main application code, which is organized as follows:
 
 -   `app`: Contains the pages of the application, following the Next.js App Router structure.
--   `components`: Contains the React components used in the application.
--   `hooks`: Contains the custom React hooks used in the application.
--   `lib`: Contains the utility functions, authentication logic, and configuration of the application.
--   `providers`: Contains the providers used in the application.
+-   `features`: Contains the different features of the application, such as dashboard and authentication. Each feature has its own components, hooks, and libraries.
+-   `shared`: Contains the shared components, hooks, libraries, and providers used across the application.
 
 ## Getting Started
 
@@ -27,6 +25,6 @@ To get started with the project, you need to have Node.js and npm installed on y
 
 ## Logging and Error Handling
 
-The application uses a centralized logger to log messages to the console. The logger is located in the `lib/logger.ts` file and provides three log levels: `info`, `warn`, and `error`.
+The application uses a centralized logger to log messages to the console. The logger is located in the `shared/libs/logger.ts` file and provides three log levels: `info`, `warn`, and `error`.
 
 Error handling is done using a combination of `try...catch` blocks and the `error.tsx` file in the `app/dashboard` directory. The `error.tsx` file is a special Next.js file that is rendered whenever an error occurs in the `Dashboard` page.
