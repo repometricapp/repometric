@@ -10,13 +10,13 @@ import AlertList from "@/components/dashboard/AlertList";
 import { formatDuration } from "@/lib/utils";
 
 export default function DashboardPage() {
-  const { data } = useDashboardData();
+  const { data, selectedOrgId, setSelectedOrgId } = useDashboardData();
 
   if (!data) {
     return null;
   }
 
-  const { userName, orgName, repos, pipelineSeries } = data;
+  const { userName, orgName, orgOptions, repos, pipelineSeries } = data;
 
   const activeRepos = repos.length;
   const passingRepos = repos.filter(
@@ -119,6 +119,9 @@ export default function DashboardPage() {
             orgName={orgName}
             userName={userName}
             lastSync={lastSync}
+            orgOptions={orgOptions}
+            selectedOrgId={selectedOrgId ?? data.selectedOrgId}
+            onOrgChange={setSelectedOrgId}
           />
 
           <DashboardMetrics metrics={metrics} />

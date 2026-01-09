@@ -40,9 +40,17 @@ export type RepoSummary = {
   lastCommit: string;
 };
 
+export type OrgOption = {
+  id: string;
+  label: string;
+  type: "org" | "personal";
+};
+
 export type DashboardData = {
   userName: string;
   orgName: string;
+  orgOptions: OrgOption[];
+  selectedOrgId: string;
   repos: RepoSummary[];
   pipelineSeries: { label: string; minutes: number; successRate: number }[];
 };
@@ -151,14 +159,29 @@ function mapHealth(pipeline: string, openIssues: number) {
   return "healthy";
 }
 
-export async function getDashboardData(token: string): Promise<DashboardData> {
+export async function getDashboardData(
+  token: string,
+  selectedOrgId?: string
+): Promise<DashboardData> {
   const user = await githubFetch<GitHubUser>("/user", token);
   const orgs = await githubFetch<GitHubOrg[]>("/user/orgs?per_page=50", token);
 
-  const orgName = orgs[0]?.login ?? user.login;
-  const repos = orgs.length
+  const orgOptions: OrgOption[] = [
+    { id: "__personal", label: `${user.login} (Personal)`, type: "personal" },
+    ...orgs.map((org) => ({ id: org.login, label: org.login, type: "org" }))
+  ];
+
+  const fallbackOrgId = orgs[0]?.login ?? "__personal";
+  const resolvedOrgId = orgOptions.some((option) => option.id === selectedOrgId)
+    ? selectedOrgId!
+    : fallbackOrgId;
+  const isPersonal = resolvedOrgId === "__personal";
+  const orgName =
+    orgOptions.find((option) => option.id === resolvedOrgId)?.label ?? resolvedOrgId;
+
+  const repos = !isPersonal
     ? await githubFetch<GitHubRepo[]>(
-        `/orgs/${orgName}/repos?per_page=50&sort=updated`,
+        `/orgs/${resolvedOrgId}/repos?per_page=50&sort=updated`,
         token
       )
     : await githubFetch<GitHubRepo[]>(
@@ -244,6 +267,8 @@ export async function getDashboardData(token: string): Promise<DashboardData> {
   return {
     userName: user.name ?? user.login,
     orgName,
+    orgOptions,
+    selectedOrgId: resolvedOrgId,
     repos: repoSummaries,
     pipelineSeries
   };
