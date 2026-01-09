@@ -1,6 +1,7 @@
 type GitHubRepo = {
   name: string;
   full_name: string;
+  private: boolean;
   open_issues_count: number;
   pushed_at: string | null;
   updated_at: string;
@@ -30,6 +31,7 @@ export type RepoHealth = "healthy" | "watch" | "risk";
 
 export type RepoSummary = {
   name: string;
+  isPrivate: boolean;
   health: RepoHealth;
   pipeline: string;
   avgRuntime: string;
@@ -203,7 +205,7 @@ export async function getDashboardData(
         getOpenPullsCount(owner, repoName, token)
       ]);
 
-      if (index === 0) {
+      if (pipelineSeries.length === 0 && runs.workflow_runs.length > 0) {
         pipelineSeries = runs.workflow_runs.slice(0, 5).map((run, runIndex) => {
           const startedAt = run.run_started_at
             ? new Date(run.run_started_at)
@@ -252,6 +254,7 @@ export async function getDashboardData(
 
       return {
         name: repo.name,
+        isPrivate: repo.private,
         health: mapHealth(pipeline, openIssues),
         pipeline,
         avgRuntime,

@@ -2,6 +2,7 @@ type RepoHealth = "healthy" | "watch" | "risk";
 
 type RepoRow = {
   name: string;
+  isPrivate: boolean;
   health: RepoHealth;
   pipeline: string;
   avgRuntime: string;
@@ -17,6 +18,11 @@ const healthStyles: Record<RepoHealth, string> = {
   watch:
     "bg-amber-500/10 text-amber-500 dark:bg-amber-500/10 dark:text-amber-400",
   risk: "bg-red-500/10 text-red-500 dark:bg-red-500/10 dark:text-red-400"
+};
+
+const visibilityStyles = {
+  private: "bg-slate-200 text-slate-700 dark:bg-white/10 dark:text-slate-200",
+  public: "bg-emerald-500/10 text-emerald-500 dark:bg-emerald-500/10 dark:text-emerald-400"
 };
 
 export default function RepoTable({
@@ -40,6 +46,7 @@ export default function RepoTable({
           <thead>
             <tr className="border-b border-slate-200 text-slate-400 dark:border-border-dark dark:text-text-muted">
               <th className="px-6 py-3 font-semibold uppercase tracking-widest">Repository</th>
+              <th className="px-4 py-3 font-semibold uppercase tracking-widest">Visibility</th>
               <th className="px-4 py-3 font-semibold uppercase tracking-widest">Health</th>
               <th className="px-4 py-3 font-semibold uppercase tracking-widest">Pipeline</th>
               <th className="px-4 py-3 font-semibold uppercase tracking-widest">Avg runtime</th>
@@ -59,6 +66,15 @@ export default function RepoTable({
               >
                 <td className="px-6 py-2.5 font-bold text-slate-800 dark:text-slate-200">
                   {repo.name}
+                </td>
+                <td className="px-4 py-2.5">
+                  <span
+                    className={`rounded-full px-2 py-0.5 text-[9px] font-bold uppercase ${
+                      repo.isPrivate ? visibilityStyles.private : visibilityStyles.public
+                    }`}
+                  >
+                    {repo.isPrivate ? "Private" : "Public"}
+                  </span>
                 </td>
                 <td className="px-4 py-2.5">
                   <span
