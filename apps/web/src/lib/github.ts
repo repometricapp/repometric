@@ -40,6 +40,7 @@ export type RepoSummary = {
   openPrs: number;
   actionsMinutes: number;
   lastCommit: string;
+  lastCommitAt: number;
 };
 
 export type OrgOption = {
@@ -252,6 +253,8 @@ export async function getDashboardData(
       const pipeline = mapPipelineStatus(latestRun);
       const avgRuntime = avgSeconds > 0 ? formatDuration(avgSeconds) : "--";
 
+      const lastCommitAt = repo.pushed_at ?? repo.updated_at;
+
       return {
         name: repo.name,
         isPrivate: repo.private,
@@ -262,7 +265,8 @@ export async function getDashboardData(
         openIssues,
         openPrs,
         actionsMinutes,
-        lastCommit: formatRelativeTime(repo.pushed_at ?? repo.updated_at)
+        lastCommit: formatRelativeTime(lastCommitAt),
+        lastCommitAt: lastCommitAt ? new Date(lastCommitAt).getTime() : 0
       };
     })
   );
