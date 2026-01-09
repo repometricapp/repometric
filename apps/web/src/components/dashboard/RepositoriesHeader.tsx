@@ -4,36 +4,48 @@ import { Button } from "@/components/ui/Button";
 import { OrgOption } from "@/lib/github";
 import UserActions from "./UserActions";
 
-type DashboardHeaderProps = {
-  orgName: string;
+type RepositoriesHeaderProps = {
   userName: string;
-  lastSync: string;
   orgOptions: OrgOption[];
   selectedOrgId: string;
   onOrgChange: (orgId: string) => void;
+  lastSync: string;
+  totalRepos: number;
+  publicRepos: number;
+  privateRepos: number;
 };
 
-export default function DashboardHeader({
-  orgName,
+export default function RepositoriesHeader({
   userName,
-  lastSync,
   orgOptions,
   selectedOrgId,
   onOrgChange,
-}: DashboardHeaderProps) {
+  lastSync,
+  totalRepos,
+  publicRepos,
+  privateRepos
+}: RepositoriesHeaderProps) {
   return (
-    <header className="flex flex-col justify-between gap-6 border-b border-slate-200 pb-6 dark:border-border-dark md:flex-row md:items-end">
-      <div className="space-y-1">
+    <header className="flex flex-col gap-6 border-b border-slate-200 pb-6 dark:border-border-dark lg:flex-row lg:items-end lg:justify-between">
+      <div className="space-y-2">
         <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-text-muted">
-          Overview
+          Repositories
         </p>
-        <h1 className="text-3xl font-bold tracking-tight">
-          Organization health overview
-        </h1>
+        <h1 className="text-3xl font-bold tracking-tight">Repository portfolio</h1>
         <p className="text-sm text-slate-500 dark:text-text-muted">
-          Signals from GitHub actions, pull requests, and repository activity
-          in one dashboard.
+          Monitor visibility, workflow health, and throughput across every repo.
         </p>
+        <div className="flex flex-wrap gap-3 text-[11px] font-semibold uppercase tracking-widest text-slate-400">
+          <span className="rounded-full bg-slate-100 px-3 py-1 dark:bg-white/5">
+            {totalRepos} total
+          </span>
+          <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-emerald-500 dark:bg-emerald-500/10 dark:text-emerald-400">
+            {publicRepos} public
+          </span>
+          <span className="rounded-full bg-slate-200 px-3 py-1 text-slate-600 dark:bg-white/10 dark:text-slate-200">
+            {privateRepos} private
+          </span>
+        </div>
       </div>
       <div className="flex flex-col items-start gap-4 md:flex-row md:items-center">
         <div className="space-y-1">
@@ -55,19 +67,13 @@ export default function DashboardHeader({
         <div className="hidden gap-6 border-r border-slate-200 pr-6 text-right dark:border-border-dark lg:flex">
           <div>
             <p className="text-[9px] font-bold uppercase text-slate-400 dark:text-text-muted">
-              Org
-            </p>
-            <p className="text-xs font-semibold">{orgName}</p>
-          </div>
-          <div>
-            <p className="text-[9px] font-bold uppercase text-slate-400 dark:text-text-muted">
               Last sync
             </p>
             <p className="text-xs font-semibold">{lastSync}</p>
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <Button className="rounded bg-primary px-6 py-2 text-sm font-bold text-white hover:bg-orange-600">
+          <Button className="rounded bg-primary px-5 py-2 text-sm font-bold text-white hover:bg-orange-600">
             Sync now
           </Button>
           <UserActions name={userName} />
