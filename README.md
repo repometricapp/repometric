@@ -1,4 +1,4 @@
-# 📊 RepoMetric
+# RepoMetric
 
 > A centralized GitHub organization observability platform for engineering teams
 
@@ -6,19 +6,19 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3-38bdf8)](https://tailwindcss.com/)
 
-## 🎯 About RepoMetric
+## About RepoMetric
 
 RepoMetric is a centralized GitHub organization observability platform designed to provide engineering teams with a unified view of repository health, CI/CD pipeline performance, development activity, and operational risk. 
 
 The platform aggregates critical signals such as:
-- ✅ Build status and pipeline execution time
-- 📈 Commit activity and development velocity
-- 🔍 Issues and pull requests tracking
-- ⚡ GitHub Actions usage and cost monitoring
+- Build status and pipeline execution time
+- Commit activity and development velocity
+- Issues and pull requests tracking
+- GitHub Actions usage and cost monitoring
 
 RepoMetric helps teams improve reliability, visibility, and data-driven decision making by turning scattered GitHub data into actionable insights.
 
-## 📸 Screenshots
+## Screenshots
 
 ### Dashboard
 ![Dashboard](images/dashboard.png)
@@ -28,16 +28,16 @@ RepoMetric helps teams improve reliability, visibility, and data-driven decision
 ![Login](images/login.png)
 *Secure GitHub OAuth authentication*
 
-## ✨ Features
+## Features
 
-- **🔐 GitHub OAuth Integration** - Secure authentication with GitHub
-- **📊 Multi-Repository Dashboard** - Monitor all your repositories in one place
-- **🚀 CI/CD Pipeline Tracking** - Track workflow runs, execution times, and failure rates
-- **📈 Development Metrics** - Monitor commits, issues, and pull requests
-- **⚠️ Alert System** - Get notified about failed pipelines and critical issues
-- **📱 Responsive Design** - Works seamlessly on desktop and mobile devices
+- **GitHub OAuth Integration** - Secure authentication with GitHub
+- **Multi-Repository Dashboard** - Monitor all your repositories in one place
+- **CI/CD Pipeline Tracking** - Track workflow runs, execution times, and failure rates
+- **Development Metrics** - Monitor commits, issues, and pull requests
+- **Alert System** - Get notified about failed pipelines and critical issues
+- **Responsive Design** - Works seamlessly on desktop and mobile devices
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -76,13 +76,13 @@ RepoMetric helps teams improve reliability, visibility, and data-driven decision
    
    Navigate to [http://localhost:3000](http://localhost:3000)
 
-## 📚 Documentation
+## Documentation
 
 - **[Development Guide](docs/development.md)** - Project structure, setup instructions, and development notes
 - **[Roadmap](docs/roadmap.md)** - Implementation progress and upcoming features
 - **[CI/CD Pipeline](docs/ci-cd-pipeline.md)** - Continuous integration and deployment setup
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Frontend**: Next.js 14 (App Router), React, TypeScript
 - **Styling**: Tailwind CSS
@@ -90,7 +90,7 @@ RepoMetric helps teams improve reliability, visibility, and data-driven decision
 - **Data Fetching**: GitHub REST API
 - **Deployment**: Vercel (recommended)
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 repometric/
@@ -107,15 +107,15 @@ repometric/
 └── images/                  # Screenshots and assets
 ```
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📄 License
+## License
 
 This project is licensed under the terms specified in the [LICENSE](LICENSE) file.
 
-## 🔗 Links
+## Links
 
 - [GitHub Repository](https://github.com/yourusername/repometric)
 - [Issue Tracker](https://github.com/yourusername/repometric/issues)
