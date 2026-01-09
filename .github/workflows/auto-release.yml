@@ -17,6 +17,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
+          # A PAT is used to allow this workflow to trigger other workflows
+          token: ${{ secrets.PAT_TOKEN }}
           fetch-depth: 0
 
       - name: Setup Node.js
@@ -24,11 +26,69 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Get version from package.json
-        id: version
+      - name: Determine version bump
+        id: bump
+        run: |
+          # Default to patch version bump
+          if [[ "${{ github.event.pull_request.title }}" == *"MAJOR"* ]]; then
+            echo "bump_type=major" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event.pull_request.title }}" == *"MINOR"* ]] || [[ "${{ github.event.pull_request.title }}" == *"feat"* ]]; then
+            echo "bump_type=minor" >> $GITHUB_OUTPUT
+          else
+            echo "bump_type=patch" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Get current version
+        id: current_version
         run: |
           VERSION=$(node -p "require('./apps/web/package.json').version")
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Bump version
+        id: new_version
+        run: |
+          CURRENT=${{ steps.current_version.outputs.version }}
+          BUMP_TYPE=${{ steps.bump.outputs.bump_type }}
+
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
+
+          case $BUMP_TYPE in
+            major)
+              MAJOR=$((MAJOR + 1))
+              MINOR=0
+              PATCH=0
+              ;;
+            minor)
+              MINOR=$((MINOR + 1))
+              PATCH=0
+              ;;
+            patch)
+              PATCH=$((PATCH + 1))
+              ;;
+          esac
+
+          NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+          echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "New version: $NEW_VERSION"
+
+      - name: Update package.json
+        run: |
+          node -e "
+            const fs = require('fs');
+            const pkgPath = './apps/web/package.json';
+            const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+            pkg.version = '${{ steps.new_version.outputs.version }}';
+            fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
+            console.log('Updated package.json to v' + pkg.version);
+          "
+
+      - name: Commit and push version bump
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add "apps/web/package.json"
+          git commit -m "chore: bump version to v${{ steps.new_version.outputs.version }}"
+          git push
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
@@ -36,9 +96,9 @@ jobs:
           files: |
             LICENSE
             README.md
-          tag_name: v${{ steps.version.outputs.version }}
+          tag_name: v${{ steps.new_version.outputs.version }}
           body: |
-            # Release v${{ steps.version.outputs.version }}
+            # Release v${{ steps.new_version.outputs.version }}
             
             ## Changes
             - PR: #${{ github.event.pull_request.number }}
@@ -50,4 +110,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Notify Release Created
-        run: echo "✅ Release v${{ steps.version.outputs.version }} created successfully!"
+        run: echo "✅ Release v${{ steps.new_version.outputs.version }} created successfully!"
