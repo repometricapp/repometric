@@ -1,6 +1,6 @@
 type MetricTone = "orange" | "sky" | "emerald" | "violet";
 
-type MetricCardProps = {
+export type MetricCardProps = {
   label: string;
   value: string;
   delta: string;

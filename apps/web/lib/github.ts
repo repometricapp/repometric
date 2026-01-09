@@ -173,7 +173,9 @@ export async function getDashboardData(
 
   const orgOptions: OrgOption[] = [
     { id: "__personal", label: `${user.login} (Personal)`, type: "personal" },
-    ...orgs.map((org) => ({ id: org.login, label: org.login, type: "org" }))
+    ...orgs.map(
+      (org): OrgOption => ({ id: org.login, label: org.login, type: "org" })
+    )
   ];
 
   const fallbackOrgId = orgs[0]?.login ?? "__personal";
@@ -197,8 +199,8 @@ export async function getDashboardData(
   const selectedRepos = repos.slice(0, 12);
   let pipelineSeries: { label: string; minutes: number; successRate: number }[] = [];
 
-  const repoSummaries = await Promise.all(
-    selectedRepos.map(async (repo, index) => {
+  const repoSummaries: RepoSummary[] = await Promise.all(
+    selectedRepos.map(async (repo, index): Promise<RepoSummary> => {
       const [owner, repoName] = repo.full_name.split("/");
       const [runs, openPrs] = await Promise.all([
         githubFetch<WorkflowRunsResponse>(

@@ -1,6 +1,6 @@
 type AlertSeverity = "critical" | "warning" | "info";
 
-type AlertItem = {
+export type AlertItem = {
   title: string;
   description: string;
   severity: AlertSeverity;

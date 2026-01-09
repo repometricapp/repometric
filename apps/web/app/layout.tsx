@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@/providers/ThemeProvider";
-import "./globals.css";
+import "../styles/globals.css";
 import { Inter, Space_Grotesk } from "next/font/google";
 
 const inter = Inter({

@@ -8,6 +8,8 @@ import RepoTable from "@/components/dashboard/RepoTable";
 import PipelineChart from "@/components/dashboard/PipelineChart";
 import AlertList from "@/components/dashboard/AlertList";
 import { formatDuration } from "@/lib/utils";
+import { MetricCardProps } from "@/components/dashboard/MetricCard";
+import { AlertItem } from "@/components/dashboard/AlertList";
 
 export default function DashboardPage() {
   const { data, selectedOrgId, setSelectedOrgId } = useDashboardData();
@@ -40,7 +42,7 @@ export default function DashboardPage() {
     minute: "2-digit",
   });
 
-  const metrics = [
+  const metrics: MetricCardProps[] = [
     {
       label: "Active repos",
       value: activeRepos.toString(),
@@ -75,9 +77,9 @@ export default function DashboardPage() {
     },
   ];
 
-  const alerts = repos
+  const alerts: AlertItem[] = repos
     .flatMap((repo) => {
-      const entries = [];
+      const entries: AlertItem[] = [];
       if (repo.pipeline === "Failing") {
         entries.push({
           title: "Workflow failures detected",
