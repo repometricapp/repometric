@@ -5,7 +5,7 @@ export default function Home() {
   const token = cookies().get("repometric_token")?.value;
 
   if (token) {
-    redirect("/demo");
+    redirect("/dashboard");
   }
 
   redirect("/login");
