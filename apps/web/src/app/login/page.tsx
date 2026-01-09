@@ -2,7 +2,32 @@
 
 export default function LoginPage() {
   return (
-    <main className="flex w-full max-w-4xl flex-col items-center px-6 py-12 text-center md:py-20">
+    <main className="relative flex w-full max-w-4xl flex-col items-center px-6 py-12 text-center md:py-20">
+      {/* Animated Grid Background */}
+      <div className="pointer-events-none fixed inset-0 z-[-2] overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-50 via-white to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950"></div>
+        <div 
+          className="absolute inset-0 opacity-20 dark:opacity-10"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgb(203 213 225 / 0.3) 1px, transparent 1px),
+              linear-gradient(to bottom, rgb(203 213 225 / 0.3) 1px, transparent 1px)
+            `,
+            backgroundSize: '60px 60px',
+            animation: 'gridMove 20s linear infinite'
+          }}
+        ></div>
+        <style jsx>{`
+          @keyframes gridMove {
+            0% {
+              transform: translate(0, 0);
+            }
+            100% {
+              transform: translate(60px, 60px);
+            }
+          }
+        `}</style>
+      </div>
       <div className="mb-8">
         <span className="inline-flex items-center rounded-full border border-gray-300 bg-gray-200 px-3 py-1 text-xs font-medium uppercase tracking-wide text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300">
           <span className="mr-2 h-2 w-2 rounded-full bg-primary"></span>
@@ -19,56 +44,6 @@ export default function LoginPage() {
         Track pipeline performance, repo health, and engineering momentum with a
         single dashboard built for teams that move fast.
       </p>
-      <div className="mb-12 grid w-full max-w-3xl grid-cols-1 gap-6 md:grid-cols-2">
-        <div className="group relative overflow-hidden rounded-2xl border border-border-light bg-card-light p-6 text-left transition-all duration-300 hover:border-primary/50 hover:shadow-lg dark:border-border-dark dark:bg-card-dark dark:hover:border-primary/50 dark:hover:shadow-glow">
-          <div className="absolute right-0 top-0 p-4 opacity-10 transition-opacity group-hover:opacity-20">
-            <svg
-              className="h-16 w-16 text-primary"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-              ></path>
-            </svg>
-          </div>
-          <h3 className="mb-2 text-xs font-bold uppercase tracking-wider text-text-muted-light dark:text-text-muted-dark">
-            Coverage
-          </h3>
-          <p className="font-display text-xl font-semibold text-gray-900 transition-colors group-hover:text-primary dark:text-white">
-            CI/CD, issues, PRs
-          </p>
-        </div>
-        <div className="group relative overflow-hidden rounded-2xl border border-border-light bg-card-light p-6 text-left transition-all duration-300 hover:border-primary/50 hover:shadow-lg dark:border-border-dark dark:bg-card-dark dark:hover:border-primary/50 dark:hover:shadow-glow">
-          <div className="absolute right-0 top-0 p-4 opacity-10 transition-opacity group-hover:opacity-20">
-            <svg
-              className="h-16 w-16 text-primary"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-              ></path>
-            </svg>
-          </div>
-          <h3 className="mb-2 text-xs font-bold uppercase tracking-wider text-text-muted-light dark:text-text-muted-dark">
-            Insight
-          </h3>
-          <p className="font-display text-xl font-semibold text-gray-900 transition-colors group-hover:text-primary dark:text-white">
-            Latency, risk, costs
-          </p>
-        </div>
-      </div>
       <div className="relative w-full max-w-md rounded-2xl border border-border-light bg-white p-8 shadow-xl dark:border-border-dark dark:bg-card-dark dark:shadow-none">
         <div className="absolute right-6 top-6">
           <span className="rounded border border-green-200 bg-green-100 px-2 py-0.5 text-[10px] font-bold text-green-700 dark:border-green-800 dark:bg-green-900/30 dark:text-green-400">
@@ -93,12 +68,6 @@ export default function LoginPage() {
             </svg>
             Continue with GitHub
           </a>
-          <button
-            className="w-full rounded-lg border border-border-light bg-transparent px-4 py-3 font-medium text-gray-700 transition-colors duration-200 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 dark:border-border-dark dark:text-gray-300 dark:hover:bg-gray-800 dark:focus:ring-gray-600 dark:focus:ring-offset-background-dark"
-            onClick={() => window.location.href = '/demo'}
-          >
-            View sample dashboard
-          </button>
         </div>
         <div className="mt-6 rounded-lg border border-gray-100 bg-gray-50 p-4 dark:border-gray-800/50 dark:bg-black/30">
           <p className="text-center text-xs leading-relaxed text-text-muted-light dark:text-text-muted-dark">
