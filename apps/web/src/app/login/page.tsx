@@ -2,32 +2,27 @@
 
 export default function LoginPage() {
   return (
-    <main className="relative flex w-full max-w-4xl flex-col items-center px-6 py-12 text-center md:py-20">
+    <>
       {/* Animated Grid Background */}
-      <div className="pointer-events-none fixed inset-0 z-[-2] overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-orange-50 via-white to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950"></div>
+      <div className="pointer-events-none fixed inset-0 z-[-1] overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-50 via-white to-blue-50 dark:from-gray-900 dark:via-black dark:to-gray-900"></div>
         <div 
-          className="absolute inset-0 opacity-20 dark:opacity-10"
+          className="absolute inset-0 animate-grid opacity-30 dark:opacity-40"
           style={{
-            backgroundImage: `
-              linear-gradient(to right, rgb(203 213 225 / 0.3) 1px, transparent 1px),
-              linear-gradient(to bottom, rgb(203 213 225 / 0.3) 1px, transparent 1px)
-            `,
-            backgroundSize: '60px 60px',
-            animation: 'gridMove 20s linear infinite'
+            backgroundImage: `linear-gradient(to right, rgb(0 0 0 / 0.15) 1px, transparent 1px), linear-gradient(to bottom, rgb(0 0 0 / 0.15) 1px, transparent 1px)`,
+            backgroundSize: '60px 60px'
           }}
         ></div>
-        <style jsx>{`
-          @keyframes gridMove {
-            0% {
-              transform: translate(0, 0);
-            }
-            100% {
-              transform: translate(60px, 60px);
-            }
-          }
-        `}</style>
+        <div 
+          className="absolute inset-0 animate-grid opacity-20 dark:opacity-30"
+          style={{
+            backgroundImage: `linear-gradient(to right, rgb(249 115 22 / 0.2) 2px, transparent 2px), linear-gradient(to bottom, rgb(249 115 22 / 0.2) 2px, transparent 2px)`,
+            backgroundSize: '120px 120px',
+            animationDuration: '30s'
+          }}
+        ></div>
       </div>
+      <main className="relative flex w-full max-w-4xl flex-col items-center px-6 py-12 text-center md:py-20">
       <div className="mb-8">
         <span className="inline-flex items-center rounded-full border border-gray-300 bg-gray-200 px-3 py-1 text-xs font-medium uppercase tracking-wide text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300">
           <span className="mr-2 h-2 w-2 rounded-full bg-primary"></span>
@@ -76,8 +71,7 @@ export default function LoginPage() {
           </p>
         </div>
       </div>
-      <div className="fixed bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
-      <div className="pointer-events-none fixed left-1/2 top-0 z-[-1] h-40 w-1/2 -translate-x-1/2 rounded-full bg-primary/10 blur-[100px]"></div>
     </main>
+    </>
   );
 }
