@@ -2,6 +2,7 @@ import AlertList from "@/components/dashboard/AlertList";
 import MetricCard from "@/components/dashboard/MetricCard";
 import PipelineChart from "@/components/dashboard/PipelineChart";
 import RepoTable from "@/components/dashboard/RepoTable";
+import Sidebar from "@/components/dashboard/Sidebar";
 import UserActions from "@/components/dashboard/UserActions";
 import { Button } from "@/components/ui/Button";
 import { getDashboardData } from "@/lib/github";
@@ -57,28 +58,32 @@ export default async function DemoPage() {
       value: activeRepos.toString(),
       delta: "Live",
       direction: "flat",
-      footnote: "Connected repositories detected"
+      footnote: "Connected repositories detected",
+      tone: "sky"
     },
     {
       label: "Pipeline success",
       value: pipelineSuccess,
       delta: "Live",
       direction: "flat",
-      footnote: "Passing workflows across repos"
+      footnote: "Passing workflows across repos",
+      tone: "emerald"
     },
     {
       label: "Avg runtime",
       value: formatDuration(avgRuntimeSeconds),
       delta: "Live",
       direction: "flat",
-      footnote: "Average recent workflow duration"
+      footnote: "Average recent workflow duration",
+      tone: "orange"
     },
     {
       label: "Open PRs",
       value: openPrsTotal.toString(),
       delta: "Live",
       direction: "flat",
-      footnote: "Open pull requests across repos"
+      footnote: "Open pull requests across repos",
+      tone: "violet"
     }
   ];
 
@@ -119,7 +124,7 @@ export default async function DemoPage() {
     .slice(0, 3);
 
   return (
-    <main className="relative min-h-screen w-full overflow-x-hidden overflow-y-visible bg-background-dark px-4 py-10 text-white sm:px-6 md:px-8 md:py-12">
+    <main className="relative min-h-screen w-full overflow-x-hidden overflow-y-visible bg-background-dark text-white">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-950 to-black"></div>
         <div className="absolute -left-40 -top-40 h-96 w-96 rounded-full bg-sky-500/10 blur-[120px]"></div>
@@ -127,49 +132,52 @@ export default async function DemoPage() {
         <div className="absolute inset-0 bg-grid opacity-30"></div>
       </div>
 
-      <div className="relative mx-auto w-full max-w-6xl space-y-8">
-        <header className="flex flex-col gap-6 rounded-3xl border border-white/10 bg-white/5 p-7 shadow-glow backdrop-blur md:flex-row md:items-center md:justify-between">
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-white/50">RepoMetric</p>
-            <h1 className="mt-3 font-display text-3xl font-semibold">
-              Organization health overview
-            </h1>
-            <p className="mt-2 max-w-xl text-sm text-white/60">
-              Signals from GitHub actions, pull requests, and repository activity
-              in one dashboard.
-            </p>
-          </div>
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm">
-              <p className="text-xs uppercase tracking-[0.2em] text-white/50">Org</p>
-              <p className="font-semibold text-white">{orgName}</p>
-            </div>
-            <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm">
-              <p className="text-xs uppercase tracking-[0.2em] text-white/50">
-                Last sync
+      <div className="relative mx-auto flex w-full max-w-[1440px] gap-6 px-4 py-8 sm:px-6 lg:px-8">
+        <Sidebar orgName={orgName} repoCount={activeRepos} openPrs={openPrsTotal} />
+        <div className="flex min-w-0 flex-1 flex-col gap-6">
+          <header className="flex flex-col gap-6 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-glow backdrop-blur md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-[0.3em] text-white/50">Overview</p>
+              <h1 className="mt-3 font-display text-3xl font-semibold">
+                Organization health overview
+              </h1>
+              <p className="mt-2 max-w-xl text-sm text-white/60">
+                Signals from GitHub actions, pull requests, and repository activity
+                in one dashboard.
               </p>
-              <p className="font-semibold text-white">{lastSync}</p>
             </div>
-            <Button className="h-12 rounded-xl px-6 text-sm font-semibold">
-              Sync now
-            </Button>
-            <UserActions name={userName} />
-          </div>
-        </header>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm">
+                <p className="text-xs uppercase tracking-[0.2em] text-white/50">Org</p>
+                <p className="font-semibold text-white">{orgName}</p>
+              </div>
+              <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm">
+                <p className="text-xs uppercase tracking-[0.2em] text-white/50">
+                  Last sync
+                </p>
+                <p className="font-semibold text-white">{lastSync}</p>
+              </div>
+              <Button className="h-12 rounded-xl px-6 text-sm font-semibold">
+                Sync now
+              </Button>
+              <UserActions name={userName} />
+            </div>
+          </header>
 
-        <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {metrics.map((metric) => (
-            <MetricCard key={metric.label} {...metric} />
-          ))}
-        </section>
+          <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {metrics.map((metric) => (
+              <MetricCard key={metric.label} {...metric} />
+            ))}
+          </section>
 
-        <section className="grid gap-6 xl:grid-cols-[2fr_1fr]">
-          <RepoTable repos={repos} totalRepos={activeRepos} />
-          <div className="space-y-6">
-            <PipelineChart data={pipelineSeries} />
-            <AlertList alerts={alerts} />
-          </div>
-        </section>
+          <section className="grid gap-6 xl:grid-cols-[2fr_1fr]">
+            <RepoTable repos={repos} totalRepos={activeRepos} />
+            <div className="space-y-6">
+              <PipelineChart data={pipelineSeries} />
+              <AlertList alerts={alerts} />
+            </div>
+          </section>
+        </div>
       </div>
     </main>
   );
