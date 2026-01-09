@@ -1,71 +1,70 @@
 # Roadmap
 
-
 ## 🧩 Implementation Roadmap
 
 ### Task 1 – Project Initialization
 - [x] Create GitHub repository
-- [ ] Define project structure (frontend/backend)
-- [ ] Initialize package managers
-- [ ] Setup environment variables
-- [ ] Create `.env.example`
-- [ ] Write initial README
+- [x] Define project structure (frontend/backend)
+- [x] Initialize package managers
+- [x] Setup environment variables
+- [x] Create `.env.example`
+- [x] Write initial README
 
 ---
 
 ### Task 2 – GitHub Authentication
-- [ ] Register GitHub OAuth application
-- [ ] Implement OAuth authorization flow
-- [ ] Securely store access tokens
-- [ ] Implement login UI
+- [x] Register GitHub OAuth application
+- [x] Implement OAuth authorization flow
+- [x] Securely store access tokens
+- [x] Implement login UI
 - [ ] Implement logout flow
-- [ ] Verify API access using `/user`
+- [x] Verify API access using `/user`
 
 ---
 
 ### Task 3 – Organization & Repository Discovery
-- [ ] Fetch organizations for authenticated user
+- [x] Fetch organizations for authenticated user
 - [ ] Organization selector UI
-- [ ] Fetch repositories for selected org
-- [ ] Fetch for Privet repositories 
-- [ ] Normalize repository data
-- [ ] Display repository list
+- [x] Fetch repositories for selected org
+- [ ] Fetch for Privet repositories
+- [x] Normalize repository data
+- [x] Display repository list
 
 ---
 
 ### Task 4 – CI/CD Pipeline Monitoring
-- [ ] Fetch workflows per repository
-- [ ] Fetch workflow runs
-- [ ] Extract latest run status
-- [ ] Calculate execution duration
-- [ ] Calculate average runtime
-- [ ] Display pipeline status per repo
+- [x] Fetch workflows per repository
+- [x] Fetch workflow runs
+- [x] Extract latest run status
+- [x] Calculate execution duration
+- [x] Calculate average runtime
+- [x] Display pipeline status per repo
 
 ---
 
 ### Task 5 – Issues & Pull Requests Monitoring
-- [ ] Fetch open issues count
-- [ ] Exclude pull requests from issue count
-- [ ] Fetch open pull requests count
-- [ ] Display counts per repository
+- [x] Fetch open issues count
+- [x] Exclude pull requests from issue count
+- [x] Fetch open pull requests count
+- [x] Display counts per repository
 - [ ] Optional: highlight critical issues
 
 ---
 
 ### Task 6 – Dashboard Development
-- [ ] Create dashboard layout
-- [ ] Implement summary metric cards
-- [ ] Implement repository table
-- [ ] Add basic pipeline runtime chart
+- [x] Create dashboard layout
+- [x] Implement summary metric cards
+- [x] Implement repository table
+- [x] Add basic pipeline runtime chart
 - [ ] Implement refresh / polling logic
 
 ---
 
 ### Task 7 – Error Handling & Stability
-- [ ] Handle GitHub API rate limits
+- [x] Handle GitHub API rate limits
 - [ ] Implement retry and backoff
 - [ ] Add caching layer (in-memory or Redis)
-- [ ] Improve loading states and error UI
+- [x] Improve loading states and error UI
 
 ---
 
@@ -86,18 +85,18 @@
 ---
 
 ### Task 10 – Alerts (Basic)
-- [ ] Define critical conditions
-- [ ] Detect failed pipelines
-- [ ] Detect long-running pipelines
-- [ ] Display alerts in UI
+- [x] Define critical conditions
+- [x] Detect failed pipelines
+- [x] Detect long-running pipelines
+- [x] Display alerts in UI
 - [ ] Optional: email or webhook alerts
 
 ---
 
 ### Task 11 – Repository Health Score
-- [ ] Define health score formula
-- [ ] Compute health score per repo
-- [ ] Display score indicator (green/yellow/red)
+- [x] Define health score formula
+- [x] Compute health score per repo
+- [x] Display score indicator (green/yellow/red)
 - [ ] Sort repositories by health score
 
 ---
@@ -120,22 +119,22 @@
 ---
 
 ### Task 14 – Final Polish & Documentation
-- [ ] UI cleanup and consistency
+- [x] UI cleanup and consistency
 - [ ] Add screenshots to README
 - [ ] Add architecture diagram
-- [ ] Add setup and usage documentation
+- [x] Add setup and usage documentation
 - [ ] Prepare demo or sample data
 
 ---
 
 ##  Definition of Done
-- [ ] GitHub OAuth authentication works
-- [ ] Organization and repository selection works
-- [ ] CI/CD pipeline status and runtime visible
-- [ ] Issues and PR counts visible
-- [ ] Dashboard loads reliably
-- [ ] Errors and rate limits handled gracefully
-- [ ] App runs locally or is deployed with documentation
+- [x] GitHub OAuth authentication works
+- [x] Organization and repository selection works
+- [x] CI/CD pipeline status and runtime visible
+- [x] Issues and PR counts visible
+- [x] Dashboard loads reliably
+- [x] Errors and rate limits handled gracefully
+- [x] App runs locally or is deployed with documentation
 
 ---
 
@@ -146,13 +145,11 @@
 - [ ] Team-based dashboards
 - [ ] Role-based access control
 
-
 ##  Monitoring Data ideas
 - [ ] GitHub Actions minutes consumed (total per org)
 - [ ] GitHub Actions minutes consumed per repository
 - [ ] GitHub Actions minutes consumed per workflow
 - [ ] Daily / monthly Actions usage trend
-
 - [ ] Cost estimation per repo
 - [ ] Highest cost workflows
 - [ ] Runner utilization (self-hosted)
