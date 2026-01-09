@@ -1,6 +1,7 @@
 type GitHubRepo = {
   name: string;
   full_name: string;
+  html_url: string;
   private: boolean;
   open_issues_count: number;
   pushed_at: string | null;
@@ -32,6 +33,7 @@ export type RepoHealth = "healthy" | "watch" | "risk";
 export type RepoSummary = {
   name: string;
   isPrivate: boolean;
+  repoUrl: string;
   health: RepoHealth;
   pipeline: string;
   avgRuntime: string;
@@ -258,6 +260,7 @@ export async function getDashboardData(
       return {
         name: repo.name,
         isPrivate: repo.private,
+        repoUrl: repo.html_url,
         health: mapHealth(pipeline, openIssues),
         pipeline,
         avgRuntime,
