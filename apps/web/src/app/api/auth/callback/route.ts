@@ -17,7 +17,7 @@ export async function GET(request: Request) {
 
   try {
     const token = await exchangeCodeForToken(code);
-    const response = NextResponse.redirect(new URL("/", request.url));
+    const response = NextResponse.redirect(new URL("/demo", request.url));
 
     response.cookies.set("repometric_token", token, {
       httpOnly: true,
