@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RepoMetric - GitHub Observability</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#F97316", // Orange pop color from screenshot
+                        "primary-hover": "#EA580C",
+                        "background-light": "#F3F4F6", // Off-white for light mode
+                        "background-dark": "#0F1115", // Deep matte black for dark mode
+                        "card-dark": "#161B22", // Slightly lighter charcoal for cards
+                        "card-light": "#FFFFFF",
+                        "border-dark": "#30363D",
+                        "border-light": "#E5E7EB",
+                        "text-main-dark": "#F0F6FC",
+                        "text-main-light": "#111827",
+                        "text-muted-dark": "#8B949E",
+                        "text-muted-light": "#6B7280",
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                        'xl': "0.75rem",
+                        '2xl': "1rem",
+                    },
+                    boxShadow: {
+                        'glow': '0 0 40px -10px rgba(249, 115, 22, 0.15)',
+                    }
+                },
+            },
+        };
+    </script>
+<style>.bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+        .light .bg-grid {
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main-light dark:text-text-main-dark transition-colors duration-300 min-h-screen flex flex-col items-center justify-center font-sans antialiased bg-grid selection:bg-primary selection:text-white">
+<main class="w-full max-w-4xl px-6 py-12 md:py-20 flex flex-col items-center text-center">
+<div class="mb-8 animate-fade-in-down">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium tracking-wide uppercase bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-gray-700">
+<span class="w-2 h-2 mr-2 rounded-full bg-primary"></span>
+                GitHub Observability
+            </span>
+</div>
+<h1 class="font-display text-4xl md:text-6xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white max-w-3xl leading-tight">
+            RepoMetric turns GitHub signals into <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-400">decisions.</span>
+</h1>
+<p class="text-lg md:text-xl text-text-muted-light dark:text-text-muted-dark max-w-2xl mb-12 leading-relaxed">
+            Track pipeline performance, repo health, and engineering momentum with a single dashboard built for teams that move fast.
+        </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl mb-12">
+<div class="group relative overflow-hidden rounded-2xl bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark p-6 text-left transition-all duration-300 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-lg dark:hover:shadow-glow">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<svg class="h-16 w-16 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<h3 class="text-xs font-bold uppercase tracking-wider text-text-muted-light dark:text-text-muted-dark mb-2">Coverage</h3>
+<p class="text-xl font-display font-semibold text-gray-900 dark:text-white group-hover:text-primary transition-colors">CI/CD, issues, PRs</p>
+</div>
+<div class="group relative overflow-hidden rounded-2xl bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark p-6 text-left transition-all duration-300 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-lg dark:hover:shadow-glow">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<svg class="h-16 w-16 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<h3 class="text-xs font-bold uppercase tracking-wider text-text-muted-light dark:text-text-muted-dark mb-2">Insight</h3>
+<p class="text-xl font-display font-semibold text-gray-900 dark:text-white group-hover:text-primary transition-colors">Latency, risk, costs</p>
+</div>
+</div>
+<div class="w-full max-w-md bg-white dark:bg-card-dark border border-border-light dark:border-border-dark rounded-2xl p-8 shadow-xl dark:shadow-none relative">
+<div class="absolute top-6 right-6">
+<span class="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-[10px] font-bold px-2 py-0.5 rounded border border-green-200 dark:border-green-800">
+                    OAuth
+                </span>
+</div>
+<div class="text-left mb-6">
+<h2 class="text-2xl font-display font-bold text-gray-900 dark:text-white mb-2">Sign in to RepoMetric</h2>
+<p class="text-sm text-text-muted-light dark:text-text-muted-dark leading-relaxed">
+                    Connect your GitHub orgs and keep an eye on engineering health.
+                </p>
+</div>
+<div class="space-y-4">
+<button class="w-full flex justify-center items-center gap-3 bg-primary hover:bg-primary-hover text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background-dark">
+<svg class="h-5 w-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path>
+</svg>
+                    Continue with GitHub
+                </button>
+<button class="w-full bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 font-medium py-3 px-4 rounded-lg border border-border-light dark:border-border-dark transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-600 focus:ring-offset-2 dark:focus:ring-offset-background-dark">
+                    View sample dashboard
+                </button>
+</div>
+<div class="mt-6 p-4 bg-gray-50 dark:bg-black/30 rounded-lg border border-gray-100 dark:border-gray-800/50">
+<p class="text-xs text-text-muted-light dark:text-text-muted-dark text-center leading-relaxed">
+                    We only request read access to organization metadata. You can revoke access at any time from GitHub settings.
+                </p>
+</div>
+</div>
+</main>
+<div class="fixed bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
+<div class="fixed top-0 left-1/2 -translate-x-1/2 w-1/2 h-40 bg-primary/10 blur-[100px] rounded-full pointer-events-none z-[-1]"></div>
+
+</body></html>
