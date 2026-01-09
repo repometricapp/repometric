@@ -1,25 +1,20 @@
-const DEFAULT_SCOPES = "read:org repo";
-
-function getRequiredEnv(name: string) {
-  const value = process.env[name];
-  if (!value) {
-    throw new Error(`Missing env var: ${name}`);
-  }
-  return value;
-}
+import {
+  GITHUB_CLIENT_ID,
+  GITHUB_CLIENT_SECRET,
+  GITHUB_OAUTH_REDIRECT_URI,
+  GITHUB_OAUTH_SCOPES,
+  NEXT_PUBLIC_APP_URL
+} from "./env";
 
 export function getGitHubAuthUrl() {
-  const clientId = getRequiredEnv("GITHUB_CLIENT_ID");
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
   const redirectUri =
-    process.env.GITHUB_OAUTH_REDIRECT_URI || `${appUrl}/api/auth/callback`;
-  const scope = process.env.GITHUB_OAUTH_SCOPES || DEFAULT_SCOPES;
+    GITHUB_OAUTH_REDIRECT_URI || `${NEXT_PUBLIC_APP_URL}/api/auth/callback`;
   const state = crypto.randomUUID();
 
   const params = new URLSearchParams({
-    client_id: clientId,
+    client_id: GITHUB_CLIENT_ID,
     redirect_uri: redirectUri,
-    scope,
+    scope: GITHUB_OAUTH_SCOPES,
     state,
     allow_signup: "true"
   });
@@ -31,11 +26,8 @@ export function getGitHubAuthUrl() {
 }
 
 export async function exchangeCodeForToken(code: string) {
-  const clientId = getRequiredEnv("GITHUB_CLIENT_ID");
-  const clientSecret = getRequiredEnv("GITHUB_CLIENT_SECRET");
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
   const redirectUri =
-    process.env.GITHUB_OAUTH_REDIRECT_URI || `${appUrl}/api/auth/callback`;
+    GITHUB_OAUTH_REDIRECT_URI || `${NEXT_PUBLIC_APP_URL}/api/auth/callback`;
 
   const response = await fetch("https://github.com/login/oauth/access_token", {
     method: "POST",
@@ -44,8 +36,8 @@ export async function exchangeCodeForToken(code: string) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      client_id: clientId,
-      client_secret: clientSecret,
+      client_id: GITHUB_CLIENT_ID,
+      client_secret: GITHUB_CLIENT_SECRET,
       code,
       redirect_uri: redirectUri
     })
