@@ -2,9 +2,9 @@ import {
   GITHUB_CLIENT_ID,
   GITHUB_CLIENT_SECRET,
   GITHUB_OAUTH_REDIRECT_URI,
-  GITHUB_OAUTH_SCOPES,
-  NEXT_PUBLIC_APP_URL
-} from "./env";
+  GITHUB_OAUTH_SCOPES
+} from "./config";
+import { NEXT_PUBLIC_APP_URL } from "./env.public";
 
 export function getGitHubAuthUrl() {
   const redirectUri =
