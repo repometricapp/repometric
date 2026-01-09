@@ -1,0 +1,92 @@
+name: Bump Version on PR Merge
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    
+    # Only run if PR is merged
+    if: github.event.pull_request.merged == true
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Determine version bump
+        id: bump
+        run: |
+          # Check PR title or labels to determine version bump type
+          # Default to patch version bump
+          if [[ "${{ github.event.pull_request.title }}" == *"MAJOR"* ]]; then
+            echo "bump_type=major" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event.pull_request.title }}" == *"MINOR"* ]] || [[ "${{ github.event.pull_request.title }}" == *"feat"* ]]; then
+            echo "bump_type=minor" >> $GITHUB_OUTPUT
+          else
+            echo "bump_type=patch" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Get current version
+        id: current_version
+        run: |
+          VERSION=$(node -p "require('./apps/web/package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Bump version
+        id: new_version
+        run: |
+          CURRENT=${{ steps.current_version.outputs.version }}
+          BUMP_TYPE=${{ steps.bump.outputs.bump_type }}
+          
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
+          
+          case $BUMP_TYPE in
+            major)
+              MAJOR=$((MAJOR + 1))
+              MINOR=0
+              PATCH=0
+              ;;
+            minor)
+              MINOR=$((MINOR + 1))
+              PATCH=0
+              ;;
+            patch)
+              PATCH=$((PATCH + 1))
+              ;;
+          esac
+          
+          NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+          echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "New version: $NEW_VERSION"
+
+      - name: Update package.json files
+        run: |
+          node -e "
+            const fs = require('fs');
+            const path = require('path');
+            
+            const webPackage = './apps/web/package.json';
+            const pkg = JSON.parse(fs.readFileSync(webPackage, 'utf8'));
+            pkg.version = '${{ steps.new_version.outputs.version }}';
+            fs.writeFileSync(webPackage, JSON.stringify(pkg, null, 2) + '\n');
+            console.log('Updated web package.json to v' + pkg.version);
+          "
+
+      - name: Commit and push version bump
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add "apps/web/package.json"
+          git commit -m "chore: bump version to v${{ steps.new_version.outputs.version }}" || echo "No changes to commit"
+          git push origin main || echo "Nothing to push"
