@@ -5,7 +5,7 @@ import Sidebar from "@/components/dashboard/Sidebar";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import DashboardMetrics from "@/components/dashboard/DashboardMetrics";
 import RepoTable from "@/components/dashboard/RepoTable";
-import PipelineChart from "@/components/dashboard/PipelineChart";
+import HealthChart from "@/components/dashboard/HealthChart";
 import AlertList from "@/components/dashboard/AlertList";
 import { formatDuration } from "@/libs/utils";
 import { MetricCardProps } from "@/components/dashboard/MetricCard";
@@ -34,6 +34,12 @@ export default function DashboardPage() {
         reposWithRuntime.length
       : 0;
   const openPrsTotal = repos.reduce((sum, repo) => sum + repo.openPrs, 0);
+
+  const healthData = {
+    healthy: repos.filter((repo) => repo.health === "healthy").length,
+    watch: repos.filter((repo) => repo.health === "watch").length,
+    risk: repos.filter((repo) => repo.health === "risk").length,
+  };
 
   const lastSync = new Date().toLocaleString("en-US", {
     month: "short",
@@ -136,7 +142,7 @@ export default function DashboardPage() {
               <RepoTable repos={repos} totalRepos={activeRepos} />
             </div>
             <div className="col-span-12 space-y-6 lg:col-span-3">
-              <PipelineChart data={pipelineSeries} />
+              <HealthChart data={healthData} />
               <AlertList alerts={alerts} />
             </div>
           </section>
