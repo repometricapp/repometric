@@ -38,25 +38,26 @@ export default function Sidebar({ orgName, repoCount, openPrs, rateLimitRemainin
   };
   
   return (
-    <aside className="hidden w-64 flex-col overflow-y-auto border-r border-slate-200 bg-white p-6 text-slate-900 dark:border-border-dark dark:bg-background-dark dark:text-slate-100 lg:flex">
-      <div className="space-y-1">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-text-muted">
-          RepoMetric
-        </p>
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded border border-slate-200 bg-slate-100 dark:border-border-dark dark:bg-card-dark">
-            <span className="text-sm font-bold text-primary">RM</span>
-          </div>
-          <div>
-            <div className="text-lg font-bold leading-tight">{orgName}</div>
-            <p className="text-[10px] text-slate-500 dark:text-text-muted">
-              GitHub org observability
-            </p>
+    <aside className="sticky top-0 hidden h-screen w-64 flex-col border-r border-slate-200 bg-white text-slate-900 dark:border-border-dark dark:bg-background-dark dark:text-slate-100 lg:flex">
+      <div className="flex-1 overflow-y-auto p-6">
+        <div className="space-y-1">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-text-muted">
+            RepoMetric
+          </p>
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded border border-slate-200 bg-slate-100 dark:border-border-dark dark:bg-card-dark">
+              <span className="text-sm font-bold text-primary">RM</span>
+            </div>
+            <div>
+              <div className="text-lg font-bold leading-tight">{orgName}</div>
+              <p className="text-[10px] text-slate-500 dark:text-text-muted">
+                GitHub org observability
+              </p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <nav className="mt-8 space-y-1">
+        <nav className="mt-8 space-y-1">
         <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-text-muted">
           Navigation
         </p>
@@ -98,8 +99,9 @@ export default function Sidebar({ orgName, repoCount, openPrs, rateLimitRemainin
           })()
         ))}
       </nav>
+      </div>
 
-      <div className="mt-auto border-t border-slate-200 pt-6 text-xs dark:border-border-dark">
+      <div className="flex-shrink-0 border-t border-slate-200 p-6 text-xs dark:border-border-dark">
         <p className="mb-4 text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-text-muted">
           Quick stats
         </p>
