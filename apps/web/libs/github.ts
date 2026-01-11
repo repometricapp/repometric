@@ -51,6 +51,12 @@ export type OrgOption = {
   type: "org" | "personal";
 };
 
+export type RateLimit = {
+  remaining: number;
+  limit: number;
+  resetAt: string;
+};
+
 export type DashboardData = {
   userName: string;
   orgName: string;
@@ -58,6 +64,7 @@ export type DashboardData = {
   selectedOrgId: string;
   repos: RepoSummary[];
   pipelineSeries: { label: string; minutes: number; successRate: number }[];
+  rateLimit: RateLimit;
 };
 
 const API_BASE = "https://api.github.com";
@@ -276,12 +283,21 @@ export async function getDashboardData(
     })
   );
 
+  const rateLimit = await githubFetch<{
+    rate: { remaining: number; limit: number; reset: number };
+  }>("/rate_limit", token);
+
   return {
     userName: user.name ?? user.login,
     orgName,
     orgOptions,
     selectedOrgId: resolvedOrgId,
     repos: repoSummaries,
-    pipelineSeries
+    pipelineSeries,
+    rateLimit: {
+      remaining: rateLimit.rate.remaining,
+      limit: rateLimit.rate.limit,
+      resetAt: new Date(rateLimit.rate.reset * 1000).toISOString()
+    }
   };
 }

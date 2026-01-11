@@ -7,6 +7,9 @@ type SidebarProps = {
   orgName: string;
   repoCount: number;
   openPrs: number;
+  rateLimitRemaining: number;
+  rateLimitTotal: number;
+  rateLimitResetAt: string;
 };
 
 const navItems = [
@@ -18,8 +21,22 @@ const navItems = [
   { label: "Settings" }
 ];
 
-export default function Sidebar({ orgName, repoCount, openPrs }: SidebarProps) {
+export default function Sidebar({ orgName, repoCount, openPrs, rateLimitRemaining, rateLimitTotal, rateLimitResetAt }: SidebarProps) {
   const pathname = usePathname();
+  
+  const formatResetTime = (isoString: string) => {
+    const resetDate = new Date(isoString);
+    const now = new Date();
+    const diffMs = resetDate.getTime() - now.getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+    
+    if (diffMins < 60) {
+      return `${diffMins}m`;
+    }
+    const diffHours = Math.floor(diffMins / 60);
+    return `${diffHours}h`;
+  };
+  
   return (
     <aside className="hidden w-64 flex-col overflow-y-auto border-r border-slate-200 bg-white p-6 text-slate-900 dark:border-border-dark dark:bg-background-dark dark:text-slate-100 lg:flex">
       <div className="space-y-1">
@@ -88,16 +105,37 @@ export default function Sidebar({ orgName, repoCount, openPrs }: SidebarProps) {
         </p>
         <div className="space-y-3">
           <div className="flex justify-between">
-            <span className="text-slate-500 dark:text-text-muted">Connected repos</span>
-            <span className="font-bold">{repoCount}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-slate-500 dark:text-text-muted">Open PRs</span>
-            <span className="font-bold">{openPrs}</span>
-          </div>
-          <div className="flex justify-between">
             <span className="text-slate-500 dark:text-text-muted">Sync window</span>
             <span className="font-bold">30 days</span>
+          </div>
+          <div className="space-y-1.5">
+            <div className="flex justify-between">
+              <span className="text-slate-500 dark:text-text-muted">Rate limit</span>
+              <span className="font-bold">{rateLimitRemaining}/{rateLimitTotal}</span>
+            </div>
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
+                  <div
+                    className={`h-full transition-all ${
+                      (rateLimitRemaining / rateLimitTotal) * 100 > 50
+                        ? 'bg-emerald-500'
+                        : (rateLimitRemaining / rateLimitTotal) * 100 > 20
+                        ? 'bg-orange-500'
+                        : 'bg-red-500'
+                    }`}
+                    style={{ width: `${(rateLimitRemaining / rateLimitTotal) * 100}%` }}
+                  />
+                </div>
+                <span className="text-[10px] font-medium text-slate-500 dark:text-text-muted">
+                  {Math.round((rateLimitRemaining / rateLimitTotal) * 100)}%
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-slate-500 dark:text-text-muted">Reset in</span>
+            <span className="font-bold">{formatResetTime(rateLimitResetAt)}</span>
           </div>
         </div>
       </div>

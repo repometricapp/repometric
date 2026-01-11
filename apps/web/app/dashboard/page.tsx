@@ -18,7 +18,7 @@ export default function DashboardPage() {
     return null;
   }
 
-  const { userName, orgName, orgOptions, repos, pipelineSeries } = data;
+  const { userName, orgName, orgOptions, repos, pipelineSeries, rateLimit } = data;
 
   const activeRepos = repos.length;
   const passingRepos = repos.filter(
@@ -114,6 +114,9 @@ export default function DashboardPage() {
         orgName={orgName}
         repoCount={activeRepos}
         openPrs={openPrsTotal}
+        rateLimitRemaining={rateLimit.remaining}
+        rateLimitTotal={rateLimit.limit}
+        rateLimitResetAt={rateLimit.resetAt}
       />
       <div className="flex-1 overflow-y-auto bg-slate-50 p-6 dark:bg-background-dark sm:p-8">
         <div className="mx-auto max-w-[1400px] space-y-8">
