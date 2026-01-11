@@ -108,7 +108,7 @@ export default function RepositoriesPage() {
     return null;
   }
 
-  const { userName, orgName, orgOptions, repos } = data;
+  const { userName, orgName, orgOptions, repos, rateLimit } = data;
   const publicRepos = repos.filter((repo) => !repo.isPrivate).length;
   const privateRepos = repos.filter((repo) => repo.isPrivate).length;
   const openPrsTotal = repos.reduce((sum, repo) => sum + repo.openPrs, 0);
@@ -141,7 +141,14 @@ export default function RepositoriesPage() {
 
   return (
     <main className="flex min-h-screen w-full bg-background-light text-slate-900 dark:bg-background-dark dark:text-slate-100">
-      <Sidebar orgName={orgName} repoCount={repos.length} openPrs={openPrsTotal} />
+      <Sidebar 
+        orgName={orgName} 
+        repoCount={repos.length} 
+        openPrs={openPrsTotal} 
+        rateLimitRemaining={rateLimit.remaining}
+        rateLimitTotal={rateLimit.limit}
+        rateLimitResetAt={rateLimit.resetAt}
+      />
       <div className="flex-1 overflow-y-auto bg-slate-50 p-6 dark:bg-background-dark sm:p-8">
         <div className="mx-auto max-w-[1400px] space-y-8">
           <RepositoriesHeader
