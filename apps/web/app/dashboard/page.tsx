@@ -6,6 +6,7 @@ import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import DashboardMetrics from "@/components/dashboard/DashboardMetrics";
 import RepoTable from "@/components/dashboard/RepoTable";
 import HealthChart from "@/components/dashboard/HealthChart";
+import TopConsumersChart from "@/components/dashboard/TopConsumersChart";
 import AlertList from "@/components/dashboard/AlertList";
 import { formatDuration } from "@/libs/utils";
 import { MetricCardProps } from "@/components/dashboard/MetricCard";
@@ -40,6 +41,15 @@ export default function DashboardPage() {
     watch: repos.filter((repo) => repo.health === "watch").length,
     risk: repos.filter((repo) => repo.health === "risk").length,
   };
+
+  const topConsumers = repos
+    .filter((repo) => repo.actionsMinutes > 0)
+    .sort((a, b) => b.actionsMinutes - a.actionsMinutes)
+    .slice(0, 5)
+    .map((repo) => ({
+      name: repo.name,
+      minutes: repo.actionsMinutes,
+    }));
 
   const lastSync = new Date().toLocaleString("en-US", {
     month: "short",
@@ -143,6 +153,7 @@ export default function DashboardPage() {
             </div>
             <div className="col-span-12 space-y-6 lg:col-span-3">
               <HealthChart data={healthData} />
+              <TopConsumersChart repos={topConsumers} />
               <AlertList alerts={alerts} />
             </div>
           </section>
